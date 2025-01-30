@@ -1,0 +1,9 @@
+{
+    "content": {
+      "text": {"type": "text", "default": "button text1"}
+    },
+    "style": {
+      "backgroundColor": { "type": "color", "default": "#C6CAE9" }
+    }
+  }
+  

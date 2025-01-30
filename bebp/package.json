@@ -1,0 +1,18 @@
+{
+  "name": "create-bebp",
+  "version": "1.0.0",
+  "description": "Boilerplate project for building UI with logic components.",
+  "main": "dist/index.js",
+  "bin": {
+    "create-bebp": "./dist/cli.js"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "vite": "^latest",
+    "typescript": "^latest"
+  }
+}

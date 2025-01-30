@@ -1,0 +1,35 @@
+{
+  "name": "create-bebp",
+  "version": "1.0.1",
+  "description": "Bebp CLI - A boilerplate for building UI with logic components.",
+  "type": "module",
+  "main": "cli.js",
+  "bin": {
+    "create-bebp": "./cli.js"
+  },
+  "scripts": {
+    "build": "tsc && node copyTemplate.js",
+    "element": "tsx buildElement.ts",
+    "dev": "vite",
+    "version:bump": "node scripts/bumpVersion.js",
+    "publish:auto": "npm run version:bump && npm publish --access public"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "5.7.3",
+    "vite": "6.0.11"
+  },
+  "files": [
+    "cli.js",
+    "bebp",
+    "README.md"
+  ],
+  "keywords": [
+    "cli",
+    "starter",
+    "vite",
+    "typescript"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
