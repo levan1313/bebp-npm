@@ -1,5 +1,5 @@
 {
-  "name": "create-bebp",
+  "name": "create-builder-element",
   "version": "1.0.1",
   "description": "Bebp CLI - A boilerplate for building UI with logic components.",
   "type": "module",

@@ -1,9 +1,9 @@
 /**
- * Command to create a new npm package using the `create-bebp` tool.
+ * Command to create a new npm package using the `create-builder-element` tool.
  *
  * Usage:
  * ```
- * npx create-bebp my-project
+ * npx create-builder-element my-project
  * ```
  *
  * This command initializes a new npm package in a directory named `my-project`.
