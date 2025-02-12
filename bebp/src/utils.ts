@@ -39,7 +39,7 @@ export async function getConvertedJS(): Promise<string> {
 
 export function replaceSettingsPlaceholders(inputString: string, settings: any): string {
   return inputString.replace(/\{\{(.*?)\}\}/g, (_, path) => {
-      const value = getValueFromPath(settings, path.trim()).value;
+      const value = getValueFromPath(settings, path.trim()) ? getValueFromPath(settings, path.trim()).value :  `{{${path}}}`;
       return value !== undefined ? value.toString() : `{{${path}}}`; // Keep original if not found
   });
 }

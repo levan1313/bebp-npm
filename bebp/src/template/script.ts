@@ -1,6 +1,89 @@
-const value:string = "hello world";
+async function oa_fetchLeaderboard() {
+  const data = {
+      id: "dummy-leaderboard",
+      title: "Dummy Leaderboard",
+      items: [
+          {
+              amount: 1500,
+              coinId: "coin123",
+              leaderboardRecordId: 1,
+              placement: 1,
+              playerId: 101,
+              playerUsername: "PlayerOne",
+              prizeAmount: 5000
+          },
+          {
+              amount: 1200,
+              coinId: "coin456",
+              leaderboardRecordId: 2,
+              placement: 2,
+              playerId: 102,
+              playerUsername: "PlayerTwo",
+              prizeAmount: 3000
+          },
+          {
+              amount: 1000,
+              coinId: "coin789",
+              leaderboardRecordId: 3,
+              placement: 3,
+              playerId: 103,
+              playerUsername: "PlayerThree",
+              prizeAmount: 2000
+          }
+      ]
+  };
+  try {
+      // Select leaderboard rows container
+      const leaderboardBody = document.getElementById("oa_leaderboard-rows");
+      if (!leaderboardBody) {
+          console.error("Leaderboard container not found");
+          return;
+      }
 
-function testFunction(){
-  console.log("alert");
-  alert("do something" + value);
-}  
+      leaderboardBody.innerHTML = ""; // Clear existing rows
+
+      // ✅ Ensure `dummyData.items` exists and is an array
+      if (!data || !data.items || !Array.isArray(data.items)) {
+          console.error("Invalid dummy data structure", data);
+          leaderboardBody.innerHTML = `
+              <tr>
+                  <td colspan="4" class="oa_text-center text-danger">
+                      Invalid data format
+                  </td>
+              </tr>
+          `;
+          return;
+      }
+
+      // ✅ Loop through `items` and insert rows
+      data.items.forEach((player, index) => {
+          const row = document.createElement("tr");
+          row.classList.add("oa_leaderboard-table__row");
+
+          row.innerHTML = `
+              <td class="oa_leaderboard-table__cell">${index + 1}</td>
+              <td class="oa_leaderboard-table__cell">${player.playerUsername}</td>
+              <td class="oa_leaderboard-table__cell">${player.amount}</td>
+              <td class="oa_leaderboard-table__cell">${player.prizeAmount}</td>
+          `;
+
+          leaderboardBody.appendChild(row);
+      });
+
+  } catch (error) {
+      console.error("Error populating leaderboard data:", error);
+      const leaderboardBody = document.getElementById("oa_leaderboard-rows");
+      if (leaderboardBody) {
+          leaderboardBody.innerHTML = `
+              <tr>
+                  <td colspan="4" class="oa_text-center text-danger">
+                      Failed to load data
+                  </td>
+              </tr>
+          `;
+      }
+  }
+}
+
+// ✅ Call function
+oa_fetchLeaderboard();

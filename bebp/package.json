@@ -17,7 +17,8 @@
     "vite-plugin-node-polyfills": "^0.23.0"
   },
   "dependencies": {
-    "builder-settings-types": "^0.0.32",
+    "builder-settings-types": "^0.0.35",
+    "element_interfaces": "^0.0.7",
     "esbuild": "^0.25.0"
   }
 }

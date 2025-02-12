@@ -1,31 +1,135 @@
-button {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: 600;
+.oa_leaderboard-container {
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  margin: 20px;
+  border-radius:12px;
+  margin: auto;
+  max-width: {{maxWidth}}px;
+  background-color: {{backgroundColor}};
+  }
+  
+  /* Header Section */
+  .oa_glowing-border {
+    padding: 1px;
     text-align: center;
-    color: #1daa18; /* Text color */
-    background-color: #007bff; /* Primary color */
-    border: none;
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer;
-    transition: all 0.3s ease-in-out; /* Smooth transition effect */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border-radius: 8px;
+    background: linear-gradient(to bottom, #06273300 20%, #189540 100%);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    margin-bottom: 20px;
   }
   
-  button:hover {
-    background-color: #0056b3; /* Darker shade for hover */
-    transform: scale(1.05); /* Slightly increase size */
+  .oa_leaderboard-header {
+    text-align: center;
+    background: linear-gradient( to bottom, #06273300 40%, #1895412E 100%);
+    /* background: url(./images/gradient.png); */
+    /* background: linear-gradient(to top, rgba(24, 149, 65, 0.18), rgba(6, 39, 51, 0)); */
+    padding: 28px 0;
+    color: #ffb900;
+    border-radius: 8px;
+    color:white;
+    background-color: {{background}};
   }
   
-  button:active {
-    background-color: #003f7f; /* Even darker shade for active state */
-    transform: scale(0.98); /* Slightly smaller size */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Adjust shadow on click */
+  .oa_leaderboard-header__title {
+    font-size: 24px;
+    font-weight: 700;
   }
   
-  button:disabled {
-    background-color: #cccccc; /* Gray for disabled state */
-    cursor: not-allowed; /* No pointer interaction */
-    color: #666666; /* Subtle text color */
+  .oa_leaderboard-header__title img {
+    width: 40px;
+    vertical-align: middle;
+    margin-right: 15px;
+  }
+  
+  /* Table */
+  .oa_leaderboard-table {
+    width: 98%;
+    text-align: center;
+    margin: auto;
+    border-spacing: 0 12px; /* Adds spacing between rows */
+  }
+  
+  .oa_leaderboard-table__header-cell {
+    color: white;
+    padding: 20px 27px;
+    font-size: 20px;
+    background-color: {{background}}
+  }
+  
+  .oa_leaderboard-table__row {
+    border-radius: 8px;
+    background-color: {{tableRow}};
+  }
+  
+  .oa_leaderboard-table__cell {
+    padding: 15px;
+    font-size: 20px;
+    color: white;
+  }
+  
+  .oa_leaderboard-table__cell img {
+    width: 55px;
+    object-fit: cover;
+  }
+  
+  /* Scrollable Table Wrapper */
+  .oa_leaderboard-table-wrapper {
+    max-height: 500px;
+    overflow-y: auto;
+    margin: 0 12px 32px;
+  }
+  
+  /* Sticky Header */
+  thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: {{background}}
+  }
+  
+  /* row radius */
+  
+  /* Rounded Corners for First/Last TD */
+  .oa_leaderboard-table__row td:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+  
+  .oa_leaderboard-table__row td:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+  
+  /* Sticky Footer */
+  .oa_sticky-footer {
+    position: sticky;
+    bottom: 0;
+    background-color: #0d7b3e;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .oa_sticky-footer td {
+    padding: 15px;
+  }
+  
+  /* Scrollbar Styles */
+  .oa_leaderboard-table-wrapper::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .oa_leaderboard-table-wrapper::-webkit-scrollbar-thumb {
+    background: #ffffff20;
+    border-radius: 10px;
+  }
+  
+  .oa_leaderboard-table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #189540;
   }
