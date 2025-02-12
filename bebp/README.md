@@ -11,6 +11,8 @@
 ## starting project in dev mode
 npm run dev
 
-## it converts script.ts in template and puts it in Element with html css and settings.json files
+## it converts script.ts in template and puts it in Element with html css js files
 
 npm run element
+
+## each element should container html css js and files

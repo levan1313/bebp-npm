@@ -10,32 +10,54 @@ export async function getConvertedJS(): Promise<string> {
   }
   
 
-  export async function fetchAndAssignSettings(): Promise<void> {
-    try {
-      const response = await fetch('/src/template/settings.json');
-      if (!response.ok) {
-        throw new Error(`Failed to fetch settings.json: ${response.statusText}`);
-      }
-  
-      let settings = await response.json();
-      return settings;
-    } catch (error) {
-      console.error("Error fetching settings.json:", error);
-    }
-  }
+  export async function getConvertedSettingsJs(): Promise<any> {
+    const tsResponse = await fetch('/src/template/settings.ts');
+    const tsString = await tsResponse.text();
 
-  export function replacePlaceholders(template: string, settings: any): string {
-    console.log(template)
-    return template.replace(/\{\{(.*?)\}\}/g, (_, key) => {
-      const path = key.trim().split(".");
-      let value: any = settings;
+    // Transpile TypeScript to JavaScript WITHOUT automatic semicolon insertion
+    const transpiledCode = ts.transpileModule(tsString, {
+        compilerOptions: {
+            module: ts.ModuleKind.ESNext,
+            removeComments: true,
+            noEmitHelpers: true,
+            noImplicitAny: false, // Allow implicit `any` types if needed
+            allowJs: true,
+        }
+    }).outputText;
+
+    console.log("Transpiled Code:", removeImportStatement(transpiledCode)); // Debugging line
+
+    // Ensure settings.bts is evaluated correctly
+
+    // try {
+    //     settingsModule = new Function(`"use strict"; ${transpiledCode}; return getSettings();`)();
+    // } catch (error) {
+    //     console.error("Error evaluating settings script:", error);
+    // }
+    return ;
+}
+
+export function replaceSettingsPlaceholders(inputString: string, settings: any): string {
+  return inputString.replace(/\{\{(.*?)\}\}/g, (_, path) => {
+      const value = getValueFromPath(settings, path.trim()).value;
+      return value !== undefined ? value.toString() : `{{${path}}}`; // Keep original if not found
+  });
+}
+
+/**
+* Retrieves a nested value from the settings object using a dot-separated path.
+* 
+* @param obj - The settings object.
+* @param path - The dot-separated path (e.g., "background.color.value").
+* @returns The corresponding value if found, otherwise undefined.
+*/
+function getValueFromPath(obj: any, path: string): any {
+  return path.split('.').reduce((acc, key) => (acc && acc[key] !== undefined ? acc[key] : undefined), obj);
+}
+
   
-      for (const segment of path) {
-        value = value?.[segment];
-        if (value === undefined) return `{{${key}}}`;
-      }
-  
-      return value.default ?? value;
-    });
-  }
-  
+export function removeImportStatement(code: string) {
+  return code
+      .replace(/^import .*?;\n?/gm, '') // Removes import statements
+      .replace(/export default\s+({[\s\S]*?});?\s*$/m, '$1'); // Captures the object and removes 'export default'
+}

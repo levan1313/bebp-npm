@@ -1,6 +1,6 @@
 {
   "name": "create-builder-element",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Bebp CLI - A boilerplate for building UI with logic components.",
   "type": "module",
   "main": "cli.js",
@@ -12,7 +12,7 @@
     "element": "tsx buildElement.ts",
     "dev": "vite",
     "version:bump": "node scripts/bumpVersion.js",
-    "publish:auto": "npm run version:bump && npm publish --access public"
+    "pub:auto": "npm run version:bump && npm publish --access public"
   },
   "devDependencies": {
     "tsx": "^4.19.2",

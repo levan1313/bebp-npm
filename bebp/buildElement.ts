@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import ts from "typescript";
+import { removeImportStatement } from "./src/utils";
 
 // Define source and destination paths
 const SRC_TEMPLATE = path.join(__dirname, "src/template");
@@ -11,7 +12,7 @@ if (!fs.existsSync(DEST_ELEMENT)) {
   fs.mkdirSync(DEST_ELEMENT, { recursive: true });
 }
 
-// Copy function
+// Copy function for files that don't require transpiling
 function copyFile(fileName: string) {
   const srcPath = path.join(SRC_TEMPLATE, fileName);
   const destPath = path.join(DEST_ELEMENT, fileName);
@@ -24,28 +25,34 @@ function copyFile(fileName: string) {
   }
 }
 
-// Convert TypeScript to JavaScript
-function transpileScript() {
-  const scriptPath = path.join(SRC_TEMPLATE, "script.ts");
-  const destScriptPath = path.join(DEST_ELEMENT, "script.js");
+// Generic transpile function for TypeScript-like files (e.g., .ts or .bts)
+// Transpiles the source file and writes it to the destination with a new file name.
+function transpileFile(srcFileName: string, destFileName: string) {
+  const srcPath = path.join(SRC_TEMPLATE, srcFileName);
+  const destPath = path.join(DEST_ELEMENT, destFileName);
 
-  if (fs.existsSync(scriptPath)) {
-    const tsContent = fs.readFileSync(scriptPath, "utf-8");
-    const jsContent = ts.transpileModule(tsContent, {
+  if (fs.existsSync(srcPath)) {
+    const fileContent = fs.readFileSync(srcPath, "utf-8");
+    const transpiled = ts.transpileModule(fileContent, {
       compilerOptions: { module: ts.ModuleKind.ESNext },
     }).outputText;
-
-    fs.writeFileSync(destScriptPath, jsContent);
-    console.log("✅ Transpiled script.ts to script.js");
+    const parsed = removeImportStatement(transpiled);
+    console.log(parsed)
+    fs.writeFileSync(destPath, parsed);
+    console.log(`✅ Transpiled ${srcFileName} to ${destFileName}`);
   } else {
-    console.warn("⚠️ script.ts not found!");
+    console.warn(`⚠️ ${srcFileName} not found!`);
   }
 }
 
-// Execute operations
+// Execute operations:
+
+// Copy static files
 copyFile("index.html");
 copyFile("style.css");
-copyFile("settings.json");
-transpileScript();
+
+// Transpile and copy dynamic files
+transpileFile("script.ts", "script.js");
+transpileFile("settings.ts", "settings.js");
 
 console.log("🎉 Build completed! Files moved to /src/Element");

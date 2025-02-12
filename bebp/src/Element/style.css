@@ -4,7 +4,7 @@ button {
     font-size: 16px;
     font-weight: 600;
     text-align: center;
-    color: #ffffff; /* Text color */
+    color: #1daa18; /* Text color */
     background-color: #007bff; /* Primary color */
     border: none;
     border-radius: 5px; /* Rounded corners */
@@ -28,4 +28,4 @@ button {
     background-color: #cccccc; /* Gray for disabled state */
     cursor: not-allowed; /* No pointer interaction */
     color: #666666; /* Subtle text color */
-    box-shadow: n
+  }
