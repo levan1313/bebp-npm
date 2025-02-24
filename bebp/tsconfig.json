@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    // "target": "ES2020",
     "useDefineForClassFields": true,
-    "module": "ESNext",
+    // "module": "ESNext",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    // "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
@@ -15,12 +15,26 @@
 
     /* Linting */
     "strict": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
+    // "esModuleInterop": true,
+    // "resolveJsonModule": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    "module": "ESNext", 
+    "moduleResolution": "Node",
+    "target": "ES6", 
+    "declaration": false,
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "inlineSourceMap": false,
+    "inlineSources": false,
+    "importHelpers": false,
+    "noEmitHelpers": true
   },
   "include": ["src", "vite-env.d.ts", "./**/*.ts", "cli.ts"],
   "exclude": ["node_modules"]

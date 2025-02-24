@@ -9,16 +9,19 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "build-element": "tsx buildElement"
+    "build-element": "tsx buildElement",
+    "u-oa": "npm uninstall onaim-endpoints & npm uninstall endpoint-interface",
+    "i-oa": "npm install onaim-endpoints & npm install endpoint-interface"
   },
   "devDependencies": {
-    "typescript": "latest",
+    "typescript": "^5.7.3",
     "vite": "latest",
     "vite-plugin-node-polyfills": "^0.23.0"
   },
   "dependencies": {
     "builder-settings-types": "^0.0.35",
-    "element_interfaces": "^0.0.7",
-    "esbuild": "^0.25.0"
+    "endpoint-interface": "^0.0.3",
+    "esbuild": "^0.25.0",
+    "onaim-endpoints": "^0.0.2"
   }
 }

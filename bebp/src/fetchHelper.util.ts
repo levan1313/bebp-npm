@@ -1,23 +1,13 @@
-import { EndpointInfoI } from "element_interfaces";
+import { EndpointInfoI, ParamsType, FetchEndpointI } from "endpoint-interface";
 import { generateDummyData } from "./generateDummyData";
 
-declare type ParamsType = {
-  body: {};
-} | {
-  query: {};
-} | {
-  body: {};
-  query: {};
-} | undefined;
-
-export const test =async (): Promise<number> => {
-  return 42; // or any other number
-};
-
-export const myFetch = <T, Q extends ParamsType>(endpointInfo: EndpointInfoI<T, Q>): Promise<T> => {
-  return new Promise<T>((resolve, reject) => {
+export const fetchEndpoint = async <T, Q extends ParamsType>(
+  endpointInfo: EndpointInfoI<T, Q>,
+  params?: ParamsType
+) => {
+  
     if (!endpointInfo.schema) {
-      return reject(new Error("Schema is missing for dummy data generation"));
+      throw new Error("Schema is missing for dummy data generation");
     }
 
     try {
@@ -26,16 +16,9 @@ export const myFetch = <T, Q extends ParamsType>(endpointInfo: EndpointInfoI<T, 
           ? JSON.parse(endpointInfo.schema)
           : endpointInfo.schema;
 
-      const data = generateDummyData<T>(parsedSchema, parsedSchema, 8);
-
-      if (data === null) {
-        return reject(new Error("Generated dummy data is null"));
-      }
-
-      resolve(data);
+      return generateDummyData<T>(parsedSchema, parsedSchema, 8);
     } catch (error) {
       console.error("Error parsing schema:", error);
-      reject(new Error("Invalid schema format"));
+      throw new Error("Invalid schema format");
     }
-  });
 };

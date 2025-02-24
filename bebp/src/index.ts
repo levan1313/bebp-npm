@@ -30,26 +30,21 @@ getConvertedJS().then(async (jsString) => {
 });
 
 
-import { myFetch } from "./fetchHelper.util";
-import { EndpointInfoI } from "element_interfaces";
 import { GlobalI } from "./globals";
-
-export const setupGlobals = async () => {
-    window.myFetch = myFetch;   
-}
+import { EndpointInfoI, FetchEndpointI, ParamsType } from "endpoint-interface";
 
 
-declare type ParamsType = {
-    body: {};
-} | {
-    query: {};
-} | {
-    body: {};
-    query: {};
-} | undefined;
 declare global {
-  interface Window {
-    myFetch: <T, Q extends ParamsType>(endpointInfo: EndpointInfoI<T, Q> ) => Promise<T>;
-    globalConfig: GlobalI; // Ensure this property exists
+  interface Window extends FetchEndpointI {
+    fetchEndpoint<T, Q extends ParamsType>(
+      endpointInfo: EndpointInfoI<T, Q>,
+      params: Q
+    ): Promise<T>;
+
+    
+    fetchEndpoint<T>(endpointInfo: EndpointInfoI<T, undefined>): Promise<T>;
+
+    globalConfig: GlobalI;
   }
 }
+
